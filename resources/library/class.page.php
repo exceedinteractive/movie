@@ -3,8 +3,8 @@ class Page
 {
     function __construct($title)
     {
-        $this->msg  = '';
-
+        $logout =  (isset($_SESSION['user_id'])) ? '<a class="nav-link" href="action.php?logout=true">Logout</a>' : '';
+        
         // Renders document header
         echo '<!doctype html>
         <html lang="en">
@@ -33,19 +33,13 @@ class Page
                 <img src="/img/logo_white.png" height="40" class="d-inline-block align-top" alt="">
                 <span class="navbar-logo">MovieWeb</span>
             </a>
-            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home.php">List</a>
+                        ' . $logout . '
                     </li>
                 </ul>
-            </div>-->
+            </div>
             </nav>
         </header>';
 

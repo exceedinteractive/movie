@@ -1,9 +1,14 @@
 <?php
-// Load config
-require_once("/resources/config.php");
-
 // Start session
 session_start();
+
+// Check for active user
+if(!isset($_SESSION['user_id'])){
+  header('location: index.php');
+}
+
+// Load config
+require_once("/resources/config.php");
 
 // Including the database connection file
 require_once(LIBRARY_PATH . '/class.crud.php');
@@ -27,18 +32,18 @@ if($result = $crud->read($sql)){
     $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
 }else{
     echo '<div id="container">
-    <div id="content">
-      <!-- Page content -->
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1>Ooops!</h1>
-            <p>Sorry, we are unable to get movie data at this time.</p>
-            <hr>
+      <div id="content">
+        <!-- Page content -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <h1>Ooops!</h1>
+              <p>Sorry, we are unable to get movie data at this time.</p>
+              <hr>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>';
 }
 
@@ -52,7 +57,7 @@ $page = new page('MovieWeb - Listing');
     <div class="container">
     <div class="row">
         <div class="col-lg-12">
-          <h1>Welcome!</h1>
+          <h2>Welcome!</h2>
           <p>Explore movie ratings, formats, length and release dates.</p>
           <hr>
         </div>

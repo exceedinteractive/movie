@@ -5,7 +5,7 @@ require_once("/resources/config.php");
 // Start session
 session_start();
  
-// Including the database connection file
+// Including the CRUD library file
 require_once(LIBRARY_PATH . '/class.crud.php');
 $crud = new Crud();
 
@@ -18,6 +18,10 @@ if(isset($_POST['add'])){
     $action = 'delete';
 }elseif(isset($_GET['id'])){
     $action = 'select';
+}elseif(isset($_POST['login'])){
+    $action = 'auth';
+}elseif(isset($_GET['logout'])){
+    $action = 'logout';
 }else{
     $action = '';
 }
@@ -100,6 +104,27 @@ switch($action){
         }else{
             echo json_encode(array('data' => false));
         }
+        break;
+    case 'auth':
+        $user = $crud->escape_string($_POST['user']);
+        $pass = $crud->escape_string($_POST['pass']);
+
+        // Including the user library file
+        require_once(LIBRARY_PATH . '/class.user.php');
+        $users = new User($user, $pass);
+        if ($user_id = $users->login()) {
+            header('location: movies.php');
+        }else{
+            $_SESSION['message'] = 'Login failed!';
+            header('location: index.php');
+        }
+        break;
+    case 'logout':
+        // Including the user library file
+        require_once(LIBRARY_PATH . '/class.user.php');
+        $users = new User();
+        $users->logout();
+        header('location: index.php');
         break;
     default:
         // Throw error

@@ -148,6 +148,22 @@ body {
     display: block;
     float: right;
 }
+h2{
+    padding-top: 20px;
+    margin-bottom:20px; 
+    font-weight:800; 
+    font-size:30px; 
+    color: #DE6262;
+}
+h2:after{
+    content:" "; 
+    width:100px; 
+    height:5px; 
+    background:#FEB58A;
+    display:block; 
+    margin-top:20px; 
+    border-radius:3px; 
+}
 /* Modal styles
 -------------------------------------------------- */
 .modal-body input, select{
