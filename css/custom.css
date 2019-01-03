@@ -27,7 +27,7 @@ body {
 /* Contant styles
 -------------------------------------------------- */
 #container{
-    padding: 100px 20px 0;
+    padding: 100px 20px 60px;
 }
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -47,7 +47,8 @@ body {
 .login-block{
     float:left;
     width:100%;
-    padding : 50px 0;
+    padding : 20px 0;
+    margin-bottom: 80px;
 }
 .banner-sec{ 
     background-size:cover; 
@@ -127,6 +128,11 @@ body {
 .banner-text p{
     color:#fff;
 }
+@media screen and (max-width: 992px) {
+    .banner-sec{
+        display: none;
+    }
+}
 /* List page styles
 -------------------------------------------------- */
 .btn-table{
@@ -164,8 +170,89 @@ h2:after{
     margin-top:20px; 
     border-radius:3px; 
 }
+.table-responsive {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
+}
+.table-responsive>.table { 
+    margin-bottom: 0;
+}
+.table-responsive>.table>thead>tr>th, 
+.table-responsive>.table>tbody>tr>th, 
+.table-responsive>.table>tfoot>tr>th, 
+.table-responsive>.table>thead>tr>td, 
+.table-responsive>.table>tbody>tr>td, 
+.table-responsive>.table>tfoot>tr>td {
+    white-space: nowrap;
+}
 /* Modal styles
 -------------------------------------------------- */
 .modal-body input, select{
     margin: 0 0 10px 0;
+}
+/* View page styles
+-------------------------------------------------- */
+ol {
+    counter-reset: li;
+    list-style: none;
+    *list-style: decimal; 
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+ol ol {
+    margin: 0 0 0 2em;
+}
+.rounded-list a{
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em 2em;
+    *padding: .4em;
+    margin: .5em 0;
+    background: #ddd;
+    color: #444;
+    text-decoration: none;
+    border-radius: .3em;
+    transition: all .3s ease-out;   
+}
+.rounded-list a:hover{
+    background: #eee;
+}
+.rounded-list a:hover:before{
+    transform: rotate(360deg);  
+}
+.rounded-list a:before{
+    content: counter(li);
+    counter-increment: li;
+    position: absolute; 
+    left: -1.0em;
+    top: 50%;
+    margin-top: -1.0em;
+    background: #DE6262;
+    height: 2em;
+    width: 2em;
+    line-height: 1.5em;
+    border: .3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2em;
+    transition: all .3s ease-out;
+}
+.poster{
+    margin-top: 20px;
+    text-align: center;
+    height: 80%;
+    width: 100%;
+}
+.poster img{
+    display: block;
+    width: 100%;
+}
+.facts{
+    padding: 20px
 }

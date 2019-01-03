@@ -83,50 +83,52 @@ $page = new page('MovieWeb - Listing');
       <div class="row">
         <div class="col-lg-12">
           <!-- Responsive table -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th><a href="movies.php?sort=title&order=<?php echo $asc_or_desc; ?>">Title <i class="fas fa-sort<?php echo $column == 'title' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                <th><a href="movies.php?sort=format&order=<?php echo $asc_or_desc; ?>">Format <i class="fas fa-sort<?php echo $column == 'format' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                <th><a href="movies.php?sort=length&order=<?php echo $asc_or_desc; ?>">Length <i class="fas fa-sort<?php echo $column == 'length' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                <th class="text-center"><a href="movies.php?sort=released&order=<?php echo $asc_or_desc; ?>">Release Year <i class="fas fa-sort<?php echo $column == 'released' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                <th><a href="movies.php?sort=rating&order=<?php echo $asc_or_desc; ?>">Rating <i class="fas fa-sort<?php echo $column == 'rating' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                <th class="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($result as $key => $row) { ?>
-              <tr>
-                <td>
-                  <?php echo $row['id']; ?>
-                </td>
-                <td><a href="#">
-                    <?php echo $row['title']; ?></a></td>
-                <td>
-                  <?php echo $row['format']; ?>
-                </td>
-                <td>
-                  <?php echo $row['length']; ?> mins</td>
-                <td class="text-center">
-                  <?php echo $row['released']; ?>
-                </td>
-                <td>
-                  <div class="rating">
-                    <?php for($i = 1; $i <= $row['rating']; $i++){ ?>
-                    <span class="rating-star"><i class="fa fa-star"></i></span>
-                    <?php } ?>
-                  </div>
-                </td>
-                <td class="text-center">
-                  <a href="#" onclick="editRecord(<?php echo $row['id']; ?>);"data-toggle="modal" class="btn btn-outline-primary btn-sm">Edit</a>
-                  |
-                  <a href="#delete" onclick="deleteRecord(<?php echo $row['id']; ?>);" data-toggle="modal" class="btn btn-outline-primary btn-sm">Delete</a>
-                </td>
-              </tr>
-              <?php } ?>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th><a href="movies.php?sort=title&order=<?php echo $asc_or_desc; ?>">Title <i class="fas fa-sort<?php echo $column == 'title' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                  <th><a href="movies.php?sort=format&order=<?php echo $asc_or_desc; ?>">Format <i class="fas fa-sort<?php echo $column == 'format' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                  <th><a href="movies.php?sort=length&order=<?php echo $asc_or_desc; ?>">Length <i class="fas fa-sort<?php echo $column == 'length' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                  <th class="text-center"><a href="movies.php?sort=released&order=<?php echo $asc_or_desc; ?>">Release Year <i class="fas fa-sort<?php echo $column == 'released' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                  <th><a href="movies.php?sort=rating&order=<?php echo $asc_or_desc; ?>">Rating <i class="fas fa-sort<?php echo $column == 'rating' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($result as $key => $row) { ?>
+                <tr>
+                  <td>
+                    <?php echo $row['id']; ?>
+                  </td>
+                  <td><a href="view_movie.php?id=<?=$row['id']?>">
+                      <?php echo $row['title']; ?></a></td>
+                  <td>
+                    <?php echo $row['format']; ?>
+                  </td>
+                  <td>
+                    <?php echo $row['length']; ?> mins</td>
+                  <td class="text-center">
+                    <?php echo $row['released']; ?>
+                  </td>
+                  <td>
+                    <div class="rating">
+                      <?php for($i = 1; $i <= $row['rating']; $i++){ ?>
+                      <span class="rating-star"><i class="fa fa-star"></i></span>
+                      <?php } ?>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <a href="#" onclick="editRecord(<?php echo $row['id']; ?>);"data-toggle="modal" class="btn btn-outline-primary btn-sm">Edit</a>
+                    |
+                    <a href="#delete" onclick="deleteRecord(<?php echo $row['id']; ?>);" data-toggle="modal" class="btn btn-outline-primary btn-sm">Delete</a>
+                  </td>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
