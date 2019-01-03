@@ -135,6 +135,19 @@ body {
 .container h1{
     margin: 20px 0 0 0;
 }
+.rating {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    font-size:20px;
+    color: #FFCA00;
+}
+.rating-star {
+    padding: 0 5px;
+    margin: 0;
+    display: block;
+    float: right;
+}
 /* Modal styles
 -------------------------------------------------- */
 .modal-body input, select{

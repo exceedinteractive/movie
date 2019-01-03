@@ -7,7 +7,6 @@ session_start();
 
 // Including the database connection file
 require_once(LIBRARY_PATH . '/class.crud.php');
-
 $crud = new Crud();
 
 // Get the sort order for the column, ascending or descending, default is ascending.
@@ -62,7 +61,10 @@ $page = new page('MovieWeb - Listing');
         <div class="col-lg-12">
           <!-- Status messages -->
           <?php if(isset($_SESSION['message'])){ ?>
-          <div class="alert alert-info text-center">
+          <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
             <?php echo $_SESSION['message']; ?>
           </div>
           <?php unset($_SESSION['message']); } ?>
@@ -84,7 +86,7 @@ $page = new page('MovieWeb - Listing');
                 <th><a href="movies.php?sort=format&order=<?php echo $asc_or_desc; ?>">Format <i class="fas fa-sort<?php echo $column == 'format' ? '-' . $up_or_down : ''; ?>"></i></a></th>
                 <th><a href="movies.php?sort=length&order=<?php echo $asc_or_desc; ?>">Length <i class="fas fa-sort<?php echo $column == 'length' ? '-' . $up_or_down : ''; ?>"></i></a></th>
                 <th class="text-center"><a href="movies.php?sort=released&order=<?php echo $asc_or_desc; ?>">Release Year <i class="fas fa-sort<?php echo $column == 'released' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                <th class="text-center"><a href="movies.php?sort=rating&order=<?php echo $asc_or_desc; ?>">Rating <i class="fas fa-sort<?php echo $column == 'rating' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                <th><a href="movies.php?sort=rating&order=<?php echo $asc_or_desc; ?>">Rating <i class="fas fa-sort<?php echo $column == 'rating' ? '-' . $up_or_down : ''; ?>"></i></a></th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
@@ -104,13 +106,17 @@ $page = new page('MovieWeb - Listing');
                 <td class="text-center">
                   <?php echo $row['released']; ?>
                 </td>
-                <td class="text-center">
-                  <?php echo $row['rating']; ?>
+                <td>
+                  <div class="rating">
+                    <?php for($i = 1; $i <= $row['rating']; $i++){ ?>
+                    <span class="rating-star"><i class="fa fa-star"></i></span>
+                    <?php } ?>
+                  </div>
                 </td>
                 <td class="text-center">
-                  <a href="#edit" data-toggle="modal" class="btn btn-outline-primary btn-sm" data="<?php echo $row['id']; ?>">Edit</a>
+                  <a href="#" onclick="editRecord(<?php echo $row['id']; ?>);"data-toggle="modal" class="btn btn-outline-primary btn-sm">Edit</a>
                   |
-                  <a href="#delete" data-toggle="modal" class="btn btn-outline-primary btn-sm" data="<?php echo $row['id']; ?>">Delete</a>
+                  <a href="#delete" onclick="deleteRecord(<?php echo $row['id']; ?>);" data-toggle="modal" class="btn btn-outline-primary btn-sm">Delete</a>
                 </td>
               </tr>
               <?php } ?>

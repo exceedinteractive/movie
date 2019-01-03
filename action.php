@@ -7,6 +7,7 @@ session_start();
  
 // Including the database connection file
 require_once(LIBRARY_PATH . '/class.crud.php');
+$crud = new Crud();
 
 // Set the action type
 if(isset($_POST['add'])){
@@ -15,6 +16,8 @@ if(isset($_POST['add'])){
     $action = 'edit';
 }elseif(isset($_POST['delete'])){
     $action = 'delete';
+}elseif(isset($_GET['id'])){
+    $action = 'select';
 }else{
     $action = '';
 }
@@ -27,17 +30,21 @@ switch($action){
         $length   = $crud->escape_string($_POST['length']);
         $released = $crud->escape_string($_POST['released']);
         $rating   = $crud->escape_string($_POST['rating']);
-    
-        // Insert data to database
-        $sql = "INSERT INTO movie ('title', 'format', 'length', 'released', 'rating') VALUES ('" . $title . "', '" . $format . "', '" . $length . "', '" . $released . "', " . $rating . ")";
-    
-        if($crud->execute($sql)){
-            $_SESSION['message'] = 'Movie added successfully!';
+
+        if(!empty($title)){
+            // Insert data to database
+            $sql = "INSERT INTO movie (title, format, length, released, rating) VALUES ('" . $title . "', '" . $format . "', '" . $length . "', '" . $released . "', " . $rating . ")";
+
+            if($crud->execute($sql)){
+                $_SESSION['message'] = 'Movie added successfully!';
+            }else{
+                $_SESSION['message'] = 'Cannot add movie.';
+            }
         }else{
             $_SESSION['message'] = 'Cannot add movie.';
         }
         
-        header('location: home.php');
+        header('location: movies.php');
         break;
     case 'edit':
         $id       = $crud->escape_string($_POST['id']);
@@ -47,30 +54,52 @@ switch($action){
         $released = $crud->escape_string($_POST['released']);
         $rating   = $crud->escape_string($_POST['rating']);
 
-        // Update data
-        $sql = "UPDATE movies SET title = '" . $title . "', format = '" . $format . "', length = '" . $length . "', released = '" . $released . "', rating = " . $rating . " WHERE id = " . $id;
+        if(!empty($title)){
+            // Update data
+            $sql = "UPDATE movie SET title = '" . $title . "', format = '" . $format . "', length = '" . $length . "', released = '" . $released . "', rating = " . $rating . " WHERE id = " . $id;
 
-        if($crud->execute($sql)){
-            $_SESSION['message'] = 'Movie added successfully!';
+            if($crud->execute($sql)){
+                $_SESSION['message'] = 'Movie updated successfully!';
+            }else{
+                $_SESSION['message'] = 'Cannot update movie.';
+            }
         }else{
-            $_SESSION['message'] = 'Cannot add movie.';
+            $_SESSION['message'] = 'Cannot update movie.';
         }
         
-        header('location: home.php');
+        header('location: movies.php');
         break;
     case 'delete':
         $id = $crud->escape_string($_POST['id']);
 
         // Delete data
-        $sql = "DELETE FROM movies WHERE id = " . $id;
+        $sql = "DELETE FROM movie WHERE id = " . $id;
 
         if($crud->execute($sql)){
-            $_SESSION['message'] = 'Movie added successfully!';
+            $_SESSION['message'] = 'Movie deleted successfully!';
         }else{
-            $_SESSION['message'] = 'Cannot add movie.';
+            $_SESSION['message'] = 'Cannot delete movie.';
         }
         
-        header('location: home.php');
+        header('location: movies.php');
+        break;
+    case 'select':
+        $id = $crud->escape_string($_GET['id']);
+
+        // Delete data
+        $sql = "SELECT * FROM movie WHERE id = " . $id;
+
+        if($result = $crud->read($sql)){
+            $return = array('id'       => $result[0]['id'],
+                            'title'    => $result[0]['title'], 
+                            'format'   => $result[0]['format'], 
+                            'length'   => $result[0]['length'], 
+                            'released' => $result[0]['released'], 
+                            'rating'   => $result[0]['rating']);
+            echo json_encode($return);
+        }else{
+            echo json_encode(array('data' => false));
+        }
         break;
     default:
         // Throw error
