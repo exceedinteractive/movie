@@ -7,7 +7,7 @@ class Conn
     private $host     = 'localhost';
     private $username = 'root';
     private $password = 'C0mputer3';
-    private $database = 'movie';
+    private $database = 'movies';
     
     protected $connection;
     

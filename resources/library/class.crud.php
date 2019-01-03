@@ -1,6 +1,6 @@
 
 <?php
-require_once(LIBRARY_PATH . '/class.connection.php');
+require_once(LIBRARY_PATH . '/class.conn.php');
     
 class Crud extends Conn
 {
@@ -17,7 +17,7 @@ class Crud extends Conn
     public function read($sql)
     {
         $query = $this->connection->query($sql);
-        if ($query == false) {
+        if ($query == false){
             return false;
         } 
         $rows = array();
@@ -36,9 +36,9 @@ class Crud extends Conn
     {
         $query = $this->connection->query($sql);
     
-        if ($query == false) {
+        if ($query == false){
             return false;
-        } else {
+        }else{
             return true;
         }        
     }

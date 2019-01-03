@@ -1,16 +1,19 @@
 <?php
-//start session
+// Load config
+require_once("/resources/config.php");
+
+// Start session
 session_start();
  
-//including the database connection file
+// Including the database connection file
 require_once(LIBRARY_PATH . '/class.crud.php');
 
 // Set the action type
-if(isset($_POST['add'])) {
+if(isset($_POST['add'])){
     $action = 'add';
-}elseif(isset($_POST['edit'])) {
+}elseif(isset($_POST['edit'])){
     $action = 'edit';
-}elseif(isset($_POST['delete'])) {
+}elseif(isset($_POST['delete'])){
     $action = 'delete';
 }else{
     $action = '';
