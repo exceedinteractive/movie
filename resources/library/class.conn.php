@@ -4,7 +4,7 @@
  */
 class Conn 
 {    
-    private $host     = 'localhost';
+    private $host     = 'mysql.cpdgo8oho0u4.us-east-2.rds.amazonaws.com';
     private $username = 'root';
     private $password = 'C0mputer3';
     private $database = 'movies';
