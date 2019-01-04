@@ -1,8 +1,8 @@
 <?php
 // Start session
 session_start();
-
-require_once("/resources/config.php");
+// Load config 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/resources/config.php');
 // Load page
 require_once(LIBRARY_PATH . '/class.page.php');
 $page = new page('MovieWeb - Login');

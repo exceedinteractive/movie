@@ -1,6 +1,6 @@
 <?php
-// Load config
-require_once("/resources/config.php");
+// Load config 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/resources/config.php');
 
 // Start session
 session_start();

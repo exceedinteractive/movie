@@ -7,8 +7,8 @@ if(!isset($_SESSION['user_id'])){
   header('location: index.php');
 }
 
-// Load config
-require_once("/resources/config.php");
+// Load config 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/resources/config.php');
 
 // Including the database connection file
 require_once(LIBRARY_PATH . '/class.crud.php');
